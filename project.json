@@ -56,6 +56,6 @@
   },
 
   "tooling": {
-    "defaultNamespace": "micro_stub"
+    "defaultNamespace": "MicroStub"
   }
 }

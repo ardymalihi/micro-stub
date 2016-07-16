@@ -4,11 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace micro_stub.Controllers
+namespace MicroStub.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class StubsController : Controller
     {
+        private readonly string _key;
+        private readonly string _secret;
+        private readonly string _project;
+
+        public StubsController() 
+        {
+            //_key = this.ControllerContext.RouteData.Values["key"]?.ToString();
+            //_secret = this.ControllerContext.RouteData.Values["secret"]?.ToString();
+            //_project = this.ControllerContext.RouteData.Values["project"]?.ToString();
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
