@@ -5,7 +5,7 @@
     "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
     "MicroStub.Common": "1.0.0-*",
     "MicroStub.Contract": "1.0.0-*",
-    "MicroStub.Data.Json": "1.0.0-*",
+    "MicroStub.Data": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },
 
