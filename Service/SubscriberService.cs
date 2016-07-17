@@ -24,8 +24,7 @@ namespace MicroStub.Service
             _memoryCache = memoryCache;
         }
         public bool Exists(string key, string secret)
-        {
-            var e = QueryStringsEqual("ID=951357852456&FNAME=Jaime&LNAME=Lopez", "?LNAME=Lopez&ID=951357852456&fname=Jaime&");
+        {            
             var subscribers = _memoryCache.Get<List<Subscriber>>("subscribers");
             if (subscribers == null)
             {
