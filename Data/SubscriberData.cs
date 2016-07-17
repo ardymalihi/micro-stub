@@ -8,6 +8,30 @@ namespace MicroStub.Data
 {
     public class SubscriberData : ISubscriberData
     {
+        public Scenario GetScenario(string key, string project, string endpoint)
+        {
+            if (key== "0A2C3880-4969-4AC4-873B-A3E1CB88B0F6")
+            {
+                return new Scenario
+                {
+                    Key = key,
+                    Project = project,
+                    Endpoint = endpoint,
+                    Items = new List<ScenarioItem> {
+                        new ScenarioItem {
+                            Method = "Get",
+                            ContentType = "text/html",
+                            Response = "Hello from Stub!"
+                        }
+                    }
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public List<Subscriber> GetSubscribers()
         {
             return new List<Subscriber> {

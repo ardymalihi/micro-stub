@@ -8,5 +8,7 @@ namespace MicroStub.Contract
     public interface ISubscriberData
     {
         List<Subscriber> GetSubscribers();
+
+        Scenario GetScenario(string key, string project, string endpoint);
     }
 }

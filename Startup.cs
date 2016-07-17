@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using MicroStub.Contract;
 using MicroStub.Data;
 using MicroStub.Service;
+using System.IO;
 
 namespace MicroStub
 {
@@ -66,8 +67,17 @@ namespace MicroStub
             //Service
             app.Run(async context =>
             {
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync("Hello ASP.NET 5!");
+                var requestInfo = GetRequestInfo(context);
+                var scenarioItem = subscriberService.GetScenarioItem(requestInfo);
+                if (scenarioItem != null)
+                {
+                    context.Response.ContentType = scenarioItem.ContentType;
+                    await context.Response.WriteAsync(scenarioItem.Response);
+                }
+                else
+                {
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                }
             });
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -84,12 +94,27 @@ namespace MicroStub
             var authInfo = routes[0].Split(new string[] { ":", "@" }, StringSplitOptions.RemoveEmptyEntries);
             if (authInfo.Count() == 3)
             {
+                var endpoint = "/";
+                string requestBody = null;
+
+                if (context.Request.Body.CanSeek)
+                {
+                    context.Request.Body.Position = 0;
+                    requestBody = new StreamReader(context.Request.Body).ReadToEnd();
+                }
+                if (routes.Count() > 1)
+                {
+                    endpoint = endpoint + string.Join("/",routes.Skip(1).ToArray());
+                }
                 result = new RequestInfo
                 {
                     Key = authInfo[0],
                     Secret = authInfo[1],
                     Project = authInfo[1],
-                    QueryString = context.Request.QueryString.Value
+                    Endpoint = endpoint,
+                    QueryString = context.Request.QueryString.Value,
+                    Method = context.Request.Method,
+                    RequestBody = requestBody
                 };
             }
 

@@ -12,5 +12,7 @@ namespace MicroStub.Contract
         bool JsonsEqual(string first, string second);
 
         bool QueryStringsEqual(string first, string second);
+
+        ScenarioItem GetScenarioItem(RequestInfo requestInfo);
     }
 }

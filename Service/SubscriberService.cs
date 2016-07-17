@@ -36,8 +36,8 @@ namespace MicroStub.Service
 
         public bool JsonsEqual(string first, string second)
         {
-            var firstJson = JObject.Parse(first);
-            var secondJson = JObject.Parse(second);
+            var firstJson = JObject.Parse(first?? "{}");
+            var secondJson = JObject.Parse(second?? "{}");
             return JToken.DeepEquals(firstJson, secondJson);
         }
 
@@ -51,6 +51,13 @@ namespace MicroStub.Service
             var secondJson = JsonConvert.SerializeObject(secondQueryDic.Keys.ToDictionary(k => k.ToLower(), k => secondQueryDic[k]));
 
             return JsonsEqual(firstJson, secondJson);
+        }
+
+        public ScenarioItem GetScenarioItem(RequestInfo requestInfo)
+        {
+            var scenario = _subscriberData.GetScenario(requestInfo.Key, requestInfo.Project, requestInfo.Endpoint);
+
+            return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && QueryStringsEqual(o.QueryString, requestInfo.QueryString) && JsonsEqual(o.RequestBody,requestInfo.RequestBody));
         }
     }
 }
