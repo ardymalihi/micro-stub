@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MicroStub.Controllers
 {
-    [Route("{key}:{secret}@{project}")]
+    [Route("{key}:{secret}@{project}/{endpoint}")]
     public class StubsController : Controller
     {
         public string Key { get { return this.ControllerContext.RouteData.Values["key"]?.ToString(); } }
