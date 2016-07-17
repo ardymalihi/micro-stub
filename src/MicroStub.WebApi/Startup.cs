@@ -12,6 +12,7 @@ using MicroStub.Contract;
 using MicroStub.Data;
 using MicroStub.Service;
 using System.IO;
+using MicroStub.Common;
 
 namespace MicroStub
 {
@@ -32,6 +33,7 @@ namespace MicroStub
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpHelper, HttpHelper>();
             services.AddSingleton<ISubscriberData, SubscriberData>();
             services.AddSingleton<ISubscriberService, SubscriberService>();
 
@@ -40,12 +42,17 @@ namespace MicroStub
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,ISubscriberService subscriberService)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory,
+            IHttpHelper httpHelper,
+            ISubscriberService subscriberService)
         {
             //Authentication
             app.Use(next => async context =>
             {
-                var requestInfo = GetRequestInfo(context);
+                var requestInfo = httpHelper.GetRequestInfo(context);
                 var authorized = false;
                 if (requestInfo != null)
                 {
@@ -65,7 +72,7 @@ namespace MicroStub
             //Service
             app.Run(async context =>
             {
-                var requestInfo = GetRequestInfo(context);
+                var requestInfo = httpHelper.GetRequestInfo(context);
                 var scenarioItem = subscriberService.GetScenarioItem(requestInfo);
                 if (scenarioItem != null)
                 {
@@ -83,39 +90,6 @@ namespace MicroStub
 
         }
 
-        private RequestInfo GetRequestInfo(HttpContext context)
-        {
-            RequestInfo result = null;
-
-            var routes = context.Request.Path.Value.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-            var authInfo = routes[0].Split(new string[] { ":", "@" }, StringSplitOptions.RemoveEmptyEntries);
-            if (authInfo.Count() == 3)
-            {
-                var endpoint = "/";
-                string requestBody = null;
-
-                if (context.Request.Body.CanSeek)
-                {
-                    context.Request.Body.Position = 0;
-                    requestBody = new StreamReader(context.Request.Body).ReadToEnd();
-                }
-                if (routes.Count() > 1)
-                {
-                    endpoint = endpoint + string.Join("/",routes.Skip(1).ToArray());
-                }
-                result = new RequestInfo
-                {
-                    Key = authInfo[0],
-                    Secret = authInfo[1],
-                    Project = authInfo[1],
-                    Endpoint = endpoint,
-                    QueryString = context.Request.QueryString.Value,
-                    Method = context.Request.Method,
-                    RequestBody = requestBody
-                };
-            }
-
-            return result;
-        }
+        
     }
 }

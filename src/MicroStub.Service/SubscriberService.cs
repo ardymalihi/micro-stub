@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
+using MicroStub.Common;
 using MicroStub.Contract;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +13,18 @@ namespace MicroStub.Service
         private ISubscriberData _subscriberData;
         private List<Subscriber> _subscribers;
         private IMemoryCache _memoryCache;
+        private IHttpHelper _httpHelper;
 
         private const int TIMEOUT_DURATION_MINUTES = 5;
 
-        public SubscriberService(IMemoryCache memoryCache, ISubscriberData subscriberData)
+        public SubscriberService(
+            IMemoryCache memoryCache, 
+            IHttpHelper httpHelper,
+            ISubscriberData subscriberData)
         {
             _subscriberData = subscriberData;
             _memoryCache = memoryCache;
+            _httpHelper = httpHelper;
         }
         public bool Exists(string key, string secret)
         {            
@@ -34,23 +37,7 @@ namespace MicroStub.Service
             return subscribers.Any(o => o.Key == key && o.Secret == secret);
         }
 
-        public bool JsonsEqual(string first, string second)
-        {
-            var firstJson = JObject.Parse(first?? "{}");
-            var secondJson = JObject.Parse(second?? "{}");
-            return JToken.DeepEquals(firstJson, secondJson);
-        }
-
-        public bool QueryStringsEqual(string first, string second)
-        {
-            var firstQueryDic = QueryHelpers.ParseQuery(first);
-            var secondQueryDic = QueryHelpers.ParseQuery(second);
-
-            var firstJson = JsonConvert.SerializeObject(firstQueryDic.Keys.ToDictionary(k => k.ToLower(), k => firstQueryDic[k]));
-            var secondJson = JsonConvert.SerializeObject(secondQueryDic.Keys.ToDictionary(k => k.ToLower(), k => secondQueryDic[k]));
-
-            return JsonsEqual(firstJson, secondJson);
-        }
+        
 
         public ScenarioItem GetScenarioItem(RequestInfo requestInfo)
         {
@@ -58,7 +45,7 @@ namespace MicroStub.Service
 
             if (scenario != null)
             {
-                return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && QueryStringsEqual(o.QueryString, requestInfo.QueryString) && JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+                return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) && _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
             }
             else
             {
