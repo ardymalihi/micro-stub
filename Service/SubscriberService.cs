@@ -43,7 +43,6 @@ namespace MicroStub.Service
 
         public bool QueryStringsEqual(string first, string second)
         {
-            //new Uri(first).Query
             var firstQueryDic = QueryHelpers.ParseQuery(first);
             var secondQueryDic = QueryHelpers.ParseQuery(second);
 
