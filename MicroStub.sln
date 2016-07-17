@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MicroStub", "MicroStub.xproj", "{B045B4D9-7E95-4858-B43B-09F6D416F677}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MicroStub", "src\MicroStub\MicroStub.xproj", "{B045B4D9-7E95-4858-B43B-09F6D416F677}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{25E90591-8968-4533-916C-68C454D61E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B045B4D9-7E95-4858-B43B-09F6D416F677} = {25E90591-8968-4533-916C-68C454D61E32}
 	EndGlobalSection
 EndGlobal

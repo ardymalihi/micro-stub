@@ -56,7 +56,14 @@ namespace MicroStub.Service
         {
             var scenario = _subscriberData.GetScenario(requestInfo.Key, requestInfo.Project, requestInfo.Endpoint);
 
-            return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && QueryStringsEqual(o.QueryString, requestInfo.QueryString) && JsonsEqual(o.RequestBody,requestInfo.RequestBody));
+            if (scenario != null)
+            {
+                return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && QueryStringsEqual(o.QueryString, requestInfo.QueryString) && JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

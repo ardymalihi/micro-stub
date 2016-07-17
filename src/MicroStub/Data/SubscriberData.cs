@@ -10,7 +10,7 @@ namespace MicroStub.Data
     {
         public Scenario GetScenario(string key, string project, string endpoint)
         {
-            if (key== "0A2C3880-4969-4AC4-873B-A3E1CB88B0F6")
+            if (key== "0A2C3880-4969-4AC4-873B-A3E1CB88B0F6" && endpoint == "/api/v1/cart")
             {
                 return new Scenario
                 {
