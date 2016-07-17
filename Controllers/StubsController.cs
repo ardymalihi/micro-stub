@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MicroStub.Contract;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MicroStub.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{key}:{secret}@{project}")]
     public class StubsController : Controller
     {
-        private readonly string _key;
-        private readonly string _secret;
-        private readonly string _project;
+        public string Key { get { return this.ControllerContext.RouteData.Values["key"]?.ToString(); } }
 
-        public StubsController() 
+        public string Secret { get { return this.ControllerContext.RouteData.Values["secret"]?.ToString(); } }
+
+        public string Project { get { return this.ControllerContext.RouteData.Values["project"]?.ToString(); } }
+
+        private ISubscriberService _subscriberService;
+
+        public StubsController(ISubscriberService subscriberService)
         {
-            //_key = this.ControllerContext.RouteData.Values["key"]?.ToString();
-            //_secret = this.ControllerContext.RouteData.Values["secret"]?.ToString();
-            //_project = this.ControllerContext.RouteData.Values["project"]?.ToString();
+            _subscriberService = subscriberService;
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (_subscriberService.Exists(Key, Secret))
+            {
+                base.OnActionExecuting(context);
+            }
+            else
+            {
+                context.Result = new UnauthorizedResult();
+            }
+
         }
 
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { this.Key,  this.Secret, this.Project };
         }
 
         // GET api/values/5
