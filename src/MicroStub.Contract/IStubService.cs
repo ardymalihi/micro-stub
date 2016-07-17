@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MicroStub.Contract
 {
-    public interface ISubscriberService
+    public interface IStubService
     {
         bool Exists(string key, string secret);
 

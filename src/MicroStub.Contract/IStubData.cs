@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MicroStub.Contract
 {
-    public interface ISubscriberData
+    public interface IStubData
     {
         List<Subscriber> GetSubscribers();
 

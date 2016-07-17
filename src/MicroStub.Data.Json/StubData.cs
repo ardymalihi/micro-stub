@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroStub.Data
 {
-    public class SubscriberData : ISubscriberData
+    public class StubData : IStubData
     {
         public Scenario GetScenario(string key, string project, string endpoint)
         {

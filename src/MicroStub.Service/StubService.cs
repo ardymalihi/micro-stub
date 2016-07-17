@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace MicroStub.Service
 {
-    public class SubscriberService : ISubscriberService
+    public class StubService : IStubService
     {
-        private ISubscriberData _subscriberData;
+        private IStubData _stubData;
         private List<Subscriber> _subscribers;
         private IMemoryCache _memoryCache;
         private IHttpHelper _httpHelper;
 
         private const int TIMEOUT_DURATION_MINUTES = 5;
 
-        public SubscriberService(
+        public StubService(
             IMemoryCache memoryCache, 
             IHttpHelper httpHelper,
-            ISubscriberData subscriberData)
+            IStubData stubData)
         {
-            _subscriberData = subscriberData;
+            _stubData = stubData;
             _memoryCache = memoryCache;
             _httpHelper = httpHelper;
         }
@@ -31,7 +31,7 @@ namespace MicroStub.Service
             var subscribers = _memoryCache.Get<List<Subscriber>>("subscribers");
             if (subscribers == null)
             {
-                subscribers = _subscriberData.GetSubscribers();
+                subscribers = _stubData.GetSubscribers();
                 _memoryCache.Set("subscribers", subscribers, new DateTimeOffset(DateTime.Now.AddMinutes(TIMEOUT_DURATION_MINUTES)));
             }
             return subscribers.Any(o => o.Key == key && o.Secret == secret);
@@ -41,7 +41,7 @@ namespace MicroStub.Service
 
         public ScenarioItem GetScenarioItem(RequestInfo requestInfo)
         {
-            var scenario = _subscriberData.GetScenario(requestInfo.Key, requestInfo.Project, requestInfo.Endpoint);
+            var scenario = _stubData.GetScenario(requestInfo.Key, requestInfo.Project, requestInfo.Endpoint);
 
             if (scenario != null)
             {
