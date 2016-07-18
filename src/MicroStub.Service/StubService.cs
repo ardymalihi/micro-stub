@@ -41,11 +41,12 @@ namespace MicroStub.Service
         
         public Method GetMethod(RequestInfo requestInfo)
         {
-            var project = _memoryCache.Get<Project>("project_"+ requestInfo.Project);
+            var uniqueKey = $"{requestInfo.Key}:{requestInfo.Secret}@{requestInfo.Project}";
+            var project = _memoryCache.Get<Project>(uniqueKey);
             if (project == null)
             {
                 project = _stubData.GetProject(requestInfo.Key, requestInfo.Project);
-                _memoryCache.Set("project_" + requestInfo.Project, project, new DateTimeOffset(DateTime.Now.AddMinutes(PROJECTS_TIMEOUT_DURATION_MINUTES)));
+                _memoryCache.Set(uniqueKey, project, new DateTimeOffset(DateTime.Now.AddMinutes(PROJECTS_TIMEOUT_DURATION_MINUTES)));
             }
 
             if (project != null)
