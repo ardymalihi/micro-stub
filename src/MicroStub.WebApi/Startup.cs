@@ -56,7 +56,7 @@ namespace MicroStub
                 var authorized = false;
                 if (requestInfo != null)
                 {
-                    authorized = stubService.Exists(requestInfo.Key, requestInfo.Secret);
+                    authorized = stubService.SubscriberExists(requestInfo.Key, requestInfo.Secret);
                 }
 
                 if (authorized)
@@ -73,11 +73,12 @@ namespace MicroStub
             app.Run(async context =>
             {
                 var requestInfo = httpHelper.GetRequestInfo(context);
-                var scenarioItem = stubService.GetScenarioItem(requestInfo);
-                if (scenarioItem != null)
+                var method = stubService.GetMethod(requestInfo);
+                if (method != null)
                 {
-                    context.Response.ContentType = scenarioItem.ContentType;
-                    await context.Response.WriteAsync(scenarioItem.Response);
+                    context.Response.StatusCode = method.HttpStatusCode;
+                    context.Response.ContentType = method.ContentType;
+                    await context.Response.WriteAsync(method.Response);
                 }
                 else
                 {

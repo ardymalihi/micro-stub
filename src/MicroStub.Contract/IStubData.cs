@@ -9,6 +9,6 @@ namespace MicroStub.Contract
     {
         List<Subscriber> GetSubscribers();
 
-        Scenario GetScenario(string key, string project, string endpoint);
+        Project GetProject(string subscriberKey, string projectName);
     }
 }

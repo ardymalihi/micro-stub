@@ -7,7 +7,7 @@ namespace MicroStub.Contract
 {
     public class Method
     {
-        public string Name { get; set; }
+        public string HttpMethodName { get; set; }
 
         public string QueryString { get; set; }
 
@@ -16,5 +16,7 @@ namespace MicroStub.Contract
         public string ContentType { get; set; }
 
         public string Response { get; set; }
+
+        public int HttpStatusCode { get; set; }
     }
 }

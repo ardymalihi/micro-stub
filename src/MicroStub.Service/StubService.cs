@@ -15,7 +15,8 @@ namespace MicroStub.Service
         private IMemoryCache _memoryCache;
         private IHttpHelper _httpHelper;
 
-        private const int TIMEOUT_DURATION_MINUTES = 5;
+        private const int SUBSCRIBERS_TIMEOUT_DURATION_MINUTES = 10;
+        private const int PROJECTS_TIMEOUT_DURATION_MINUTES = 5;
 
         public StubService(
             IMemoryCache memoryCache, 
@@ -26,31 +27,40 @@ namespace MicroStub.Service
             _memoryCache = memoryCache;
             _httpHelper = httpHelper;
         }
-        public bool Exists(string key, string secret)
+        public bool SubscriberExists(string key, string secret)
         {            
             var subscribers = _memoryCache.Get<List<Subscriber>>("subscribers");
             if (subscribers == null)
             {
                 subscribers = _stubData.GetSubscribers();
-                _memoryCache.Set("subscribers", subscribers, new DateTimeOffset(DateTime.Now.AddMinutes(TIMEOUT_DURATION_MINUTES)));
+                _memoryCache.Set("subscribers", subscribers, new DateTimeOffset(DateTime.Now.AddMinutes(SUBSCRIBERS_TIMEOUT_DURATION_MINUTES)));
             }
             return subscribers.Any(o => o.Key == key && o.Secret == secret);
         }
 
         
-
-        public ScenarioItem GetScenarioItem(RequestInfo requestInfo)
+        public Method GetMethod(RequestInfo requestInfo)
         {
-            var scenario = _stubData.GetScenario(requestInfo.Key, requestInfo.Project, requestInfo.Endpoint);
+            var project = _memoryCache.Get<Project>("project_"+ requestInfo.Project);
+            if (project == null)
+            {
+                project = _stubData.GetProject(requestInfo.Key, requestInfo.Project);
+                _memoryCache.Set("project_" + requestInfo.Project, project, new DateTimeOffset(DateTime.Now.AddMinutes(PROJECTS_TIMEOUT_DURATION_MINUTES)));
+            }
 
-            if (scenario != null)
+            if (project != null)
             {
-                return scenario.Items.FirstOrDefault(o => o.Method.ToLower() == requestInfo.Method.ToLower() && _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) && _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+                var endpoint = project.EndPoints.FirstOrDefault(o => o.Address.ToLower() == requestInfo.Endpoint.ToLower());
+                if (endpoint != null)
+                {
+                    return endpoint.Methods.FirstOrDefault(o =>
+                    o.HttpMethodName.ToLower() == requestInfo.Method.ToLower() &&
+                    _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) &&
+                    _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+                }
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
     }
 }

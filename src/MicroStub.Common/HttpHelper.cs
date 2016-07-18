@@ -37,7 +37,7 @@ namespace MicroStub.Common
                 {
                     Key = authInfo[0],
                     Secret = authInfo[1],
-                    Project = authInfo[1],
+                    Project = authInfo[2],
                     Endpoint = endpoint,
                     QueryString = context.Request.QueryString.Value,
                     Method = context.Request.Method,

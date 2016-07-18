@@ -7,7 +7,7 @@ namespace MicroStub.Contract
 {
     public class Project
     {
-        public string SubscriberId { get; set; }
+        public string SubscriberKey { get; set; }
 
         public string Name { get; set; }
 

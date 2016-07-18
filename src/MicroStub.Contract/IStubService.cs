@@ -7,8 +7,8 @@ namespace MicroStub.Contract
 {
     public interface IStubService
     {
-        bool Exists(string key, string secret);
+        bool SubscriberExists(string key, string secret);
 
-        ScenarioItem GetScenarioItem(RequestInfo requestInfo);
+        Method GetMethod(RequestInfo requestInfo);
     }
 }
