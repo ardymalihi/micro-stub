@@ -8,11 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
-using MicroStub.Contract;
 using MicroStub.Data;
 using MicroStub.Service;
 using System.IO;
 using MicroStub.Common;
+using MicroStub.Contract.Interface;
 
 namespace MicroStub
 {

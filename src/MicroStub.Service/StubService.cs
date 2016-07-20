@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using MicroStub.Common;
-using MicroStub.Contract;
+using MicroStub.Contract.Dto;
+using MicroStub.Contract.Info;
+using MicroStub.Contract.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

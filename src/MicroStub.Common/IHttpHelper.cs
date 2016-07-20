@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MicroStub.Contract;
+using MicroStub.Contract.Info;
 using System;
 using System.Collections.Generic;
 using System.Linq;

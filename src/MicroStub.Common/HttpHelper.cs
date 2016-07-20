@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MicroStub.Contract;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.WebUtilities;
+using MicroStub.Contract.Info;
 
 namespace MicroStub.Common
 {

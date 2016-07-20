@@ -1,4 +1,5 @@
-﻿using MicroStub.Contract;
+﻿using MicroStub.Contract.Dto;
+using MicroStub.Contract.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,15 @@ namespace MicroStub.Data
         public StubData()
         {
             _subscribers = new List<Subscriber> {
-                new Subscriber { Key = "0A2C3880-4969-4AC4-873B-A3E1CB88B0F6", Secret = "650A65AB-2730-4869-B8FD-93F987A6C91E" },
-                new Subscriber { Key = "233C259C-675E-4504-9BA6-8FA828ECE8CE", Secret = "21E841E5-4685-4D9D-8D5C-0B34D6EA1B82" }
+                new Subscriber { UserId = "ardalan.malihi@gmail.com",  Key = "0A2C388049694AC4873BA3E1CB88B0F6", Secret = "650A65AB27304869B8FD93F987A6C91E" }
             };
 
             _projects = new List<Project>
             {
                 new Project
                 {
+                    SubscriberKey = "0A2C388049694AC4873BA3E1CB88B0F6",
                     Name = "CartService",
-                    SubscriberKey = "0A2C3880-4969-4AC4-873B-A3E1CB88B0F6",
                     EndPoints = new List<Endpoint>
                     {
                         new Endpoint
