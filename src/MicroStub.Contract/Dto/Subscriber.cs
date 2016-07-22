@@ -13,6 +13,8 @@ namespace MicroStub.Contract.Dto
 
         public string Secret { get; set; }
 
+        public List<Project> Projects { get; set; }
+
         public Subscriber()
         {
             Key = Guid.NewGuid().ToString().ToString().Replace("-","");

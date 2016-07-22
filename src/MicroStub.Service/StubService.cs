@@ -3,6 +3,7 @@ using MicroStub.Common;
 using MicroStub.Contract.Dto;
 using MicroStub.Contract.Info;
 using MicroStub.Contract.Interface;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,13 +54,22 @@ namespace MicroStub.Service
 
             if (project != null)
             {
+                var json = JsonConvert.SerializeObject(project, Formatting.Indented);
                 var endpoint = project.EndPoints.FirstOrDefault(o => o.Address.ToLower() == requestInfo.Endpoint.ToLower());
                 if (endpoint != null)
                 {
-                    return endpoint.Methods.FirstOrDefault(o =>
-                    o.HttpMethodName.ToLower() == requestInfo.Method.ToLower() &&
-                    _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) &&
-                    _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+                    try {
+                        var method = endpoint.Methods.FirstOrDefault(o =>
+                        o.HttpMethodName.ToLower() == requestInfo.Method.ToLower() &&
+                        _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) &&
+                        _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
+                        return method;
+                    }
+                    catch (
+                    Exception ex)
+                    {
+                    }
+                    
                 }
             }
 

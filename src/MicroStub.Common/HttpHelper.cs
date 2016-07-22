@@ -50,20 +50,36 @@ namespace MicroStub.Common
 
         public bool JsonsEqual(string first, string second)
         {
-            var firstJson = JObject.Parse(first ?? "{}");
-            var secondJson = JObject.Parse(second ?? "{}");
-            return JToken.DeepEquals(firstJson, secondJson);
+            try
+            {
+                var firstJson = JObject.Parse(!string.IsNullOrWhiteSpace(first) ? first : "{}");
+                var secondJson = JObject.Parse(!string.IsNullOrWhiteSpace(second) ? second : "{}");
+                return JToken.DeepEquals(firstJson, secondJson);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            
         }
 
         public bool QueryStringsEqual(string first, string second)
         {
-            var firstQueryDic = QueryHelpers.ParseQuery(first);
-            var secondQueryDic = QueryHelpers.ParseQuery(second);
+            try
+            {
+                var firstQueryDic = QueryHelpers.ParseQuery(first);
+                var secondQueryDic = QueryHelpers.ParseQuery(second);
 
-            var firstJson = JsonConvert.SerializeObject(firstQueryDic.Keys.ToDictionary(k => k.ToLower(), k => firstQueryDic[k]));
-            var secondJson = JsonConvert.SerializeObject(secondQueryDic.Keys.ToDictionary(k => k.ToLower(), k => secondQueryDic[k]));
+                var firstJson = JsonConvert.SerializeObject(firstQueryDic.Keys.ToDictionary(k => k.ToLower(), k => firstQueryDic[k]));
+                var secondJson = JsonConvert.SerializeObject(secondQueryDic.Keys.ToDictionary(k => k.ToLower(), k => secondQueryDic[k]));
 
-            return JsonsEqual(firstJson, secondJson);
+                return JsonsEqual(firstJson, secondJson);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            
         }
     }
 }
