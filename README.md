@@ -97,5 +97,16 @@ Tjere is a file named microstub.json inside the root folder in which you can spe
 Base Url is CompanyKey:CompanySecret@Project
 
 As an example:
+Based on configuration above:
 
+http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
+returns: {
+  cartId: 123,
+  total: 12.49,
+  items: [{price: 10.29},{price: 2.2}]
+}
+
+
+http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
+returns: { eror: "id should be between 1-1000" }
 
