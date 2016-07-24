@@ -18,7 +18,6 @@ There is a file named microstub.json inside the root folder in which you can spe
       "Key": "CompnayKey",
       "Secret": "CompanySecret",
       "Projects": [
-        // Cart Service Project
         {
           "Name": "CartService",
           "EndPoints": [
@@ -71,7 +70,6 @@ There is a file named microstub.json inside the root folder in which you can spe
             }
           ]
         },
-        // Tax Service Project
         {
           "Name": "TaxService",
           "EndPoints": [
@@ -107,9 +105,12 @@ http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
 returns: 
 ```json
 {
-  cartId: 123,
-  total: 12.49,
-  items: [{price: 10.29},{price: 2.2}]
+  "cartId": 123,
+  "total": 12.49,
+  "items": [
+    { "price": 10.29 },
+    { "price": 12.25 }
+  ]
 }
 ```
 
@@ -117,7 +118,7 @@ http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
 returns: 
 ```json
 { 
-  eror: "id should be between 1-1000" 
+  "eror": "id should be between 1-1000" 
 }
 ```
 
