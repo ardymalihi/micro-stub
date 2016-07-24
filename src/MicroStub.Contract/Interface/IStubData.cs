@@ -8,8 +8,6 @@ namespace MicroStub.Contract.Interface
 {
     public interface IStubData
     {
-        List<Subscriber> GetSubscribers();
-
-        Project GetProject(string subscriberKey, string projectName);
+        Subscriber GetSubscriber(string subscriberKey, string subscriberSecret);
     }
 }

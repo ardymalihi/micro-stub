@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using MicroStub.Common;
+﻿using MicroStub.Common;
 using MicroStub.Contract.Dto;
 using MicroStub.Contract.Info;
 using MicroStub.Contract.Interface;
@@ -15,64 +14,45 @@ namespace MicroStub.Service
     {
         private IStubData _stubData;
         private List<Subscriber> _subscribers;
-        private IMemoryCache _memoryCache;
         private IHttpHelper _httpHelper;
 
-        private const int SUBSCRIBERS_TIMEOUT_DURATION_MINUTES = 10;
-        private const int PROJECTS_TIMEOUT_DURATION_MINUTES = 5;
-
         public StubService(
-            IMemoryCache memoryCache, 
             IHttpHelper httpHelper,
             IStubData stubData)
         {
             _stubData = stubData;
-            _memoryCache = memoryCache;
             _httpHelper = httpHelper;
         }
+
         public bool SubscriberExists(string key, string secret)
-        {            
-            var subscribers = _memoryCache.Get<List<Subscriber>>("subscribers");
-            if (subscribers == null)
-            {
-                subscribers = _stubData.GetSubscribers();
-                _memoryCache.Set("subscribers", subscribers, new DateTimeOffset(DateTime.Now.AddMinutes(SUBSCRIBERS_TIMEOUT_DURATION_MINUTES)));
-            }
-            return subscribers.Any(o => o.Key == key && o.Secret == secret);
+        {
+            return _stubData.GetSubscriber(key, secret) != null;
         }
 
         
         public Method GetMethod(RequestInfo requestInfo)
         {
-            var uniqueKey = $"{requestInfo.Key}:{requestInfo.Secret}@{requestInfo.Project}";
-            var project = _memoryCache.Get<Project>(uniqueKey);
-            if (project == null)
-            {
-                project = _stubData.GetProject(requestInfo.Key, requestInfo.Project);
-                _memoryCache.Set(uniqueKey, project, new DateTimeOffset(DateTime.Now.AddMinutes(PROJECTS_TIMEOUT_DURATION_MINUTES)));
-            }
+            var subscriber = _stubData.GetSubscriber(requestInfo.Key, requestInfo.Secret);
 
-            if (project != null)
+            if (subscriber != null)
             {
-                var json = JsonConvert.SerializeObject(project, Formatting.Indented);
-                var endpoint = project.EndPoints.FirstOrDefault(o => o.Address.ToLower() == requestInfo.Endpoint.ToLower());
-                if (endpoint != null)
+                var project = subscriber.Projects.FirstOrDefault(o => o.Name.ToLower() == requestInfo.Project.ToLower());
+
+                if (project != null)
                 {
-                    try {
+                    var json = JsonConvert.SerializeObject(project, Formatting.Indented);
+                    var endpoint = project.EndPoints.FirstOrDefault(o => o.Address.ToLower() == requestInfo.Endpoint.ToLower());
+                    if (endpoint != null)
+                    {
                         var method = endpoint.Methods.FirstOrDefault(o =>
                         o.HttpMethodName.ToLower() == requestInfo.Method.ToLower() &&
                         _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) &&
                         _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
                         return method;
                     }
-                    catch (
-                    Exception ex)
-                    {
-                    }
-                    
                 }
             }
-
+            
             return null;
         }
     }

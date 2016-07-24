@@ -6,42 +6,47 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using MicroStub.Contract.Info;
 
 namespace MicroStub.Data
 {
     public class StubData : IStubData
     {
-        private List<Subscriber> _subscribers;
-        private List<Project> _projects;
-
-        public IConfigurationRoot _configuration { get; }
-
-        private AppSettings _appSettings;
+        private IHostingEnvironment _env;
+        private StubConfig _microStubInfo;
 
         public StubData(IHostingEnvironment env)
         {
+            _env = env;
+
+            Bind();
+        }
+
+        private void Bind()
+        {
+            _microStubInfo = new StubConfig();
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                    .SetBasePath(_env.ContentRootPath)
+                    .AddJsonFile("microstub.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"microstub.{_env.EnvironmentName}.json", optional: true)
+                    .AddEnvironmentVariables();
 
-            _configuration = builder.Build();
+            var config = builder.Build();
 
-            _appSettings = new AppSettings();
+            config.Bind(_microStubInfo);
 
-            ConfigurationBinder.Bind(_configuration, _appSettings);
+            var token = config.GetReloadToken();
+            token.RegisterChangeCallback(c =>
+            {
+                Bind();
 
+            }, this);
         }
 
-        public Project GetProject(string subscriberKey, string projectName)
+        public Subscriber GetSubscriber(string subscriberKey, string subscriberSecret)
         {
-            return _appSettings.MicroStub.Subscriber.Projects.FirstOrDefault(o => o.Name == projectName);
-        }
-
-        public List<Subscriber> GetSubscribers()
-        {
-            return new List<Subscriber> { _appSettings.MicroStub.Subscriber };
+            return _microStubInfo.Subscribers.FirstOrDefault(o => o.Key == subscriberKey && o.Secret == subscriberSecret);
         }
     }
 }

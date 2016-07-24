@@ -7,8 +7,6 @@ namespace MicroStub.Contract.Dto
 {
     public class Subscriber
     {
-        public string UserId { get; set; }
-
         public string Key { get; set; }
 
         public string Secret { get; set; }
@@ -17,6 +15,7 @@ namespace MicroStub.Contract.Dto
 
         public Subscriber()
         {
+            Projects = new List<Project>();
             Key = Guid.NewGuid().ToString().ToString().Replace("-","");
             Secret = Guid.NewGuid().ToString().ToString().Replace("-", "");
         }

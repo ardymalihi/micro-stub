@@ -1,0 +1,48 @@
+﻿{
+  "Subscribers": [
+    {
+      "Key": "BuildDirect",
+      "Secret": "650A65AB27304869B8FD93F987A6C91E",
+      "Projects": [
+        // Cart Service Project
+        {
+          "Name": "CartService",
+          "EndPoints": [
+            {
+              "Address": "/api/v1/cart/1",
+              "Methods": [
+                {
+                  "HttpMethodName": "GET",
+                  "QueryString": null,
+                  "RequestBody": null,
+                  "ContentType": "application/json",
+                  "Response": "{ \"cartId\": 123, \"total\": 12.49, \"items\": [ { \"price\": 10.29 }, { \"price\": 2.20} ] }",
+                  "HttpStatusCode": 200
+                }
+              ]
+            }
+          ]
+        },
+        // Tax Service Project
+        {
+          "Name": "TaxService",
+          "EndPoints": [
+            {
+              "Address": "/api/v1/taxes/1",
+              "Methods": [
+                {
+                  "HttpMethodName": "GET",
+                  "QueryString": null,
+                  "RequestBody": null,
+                  "ContentType": "application/json",
+                  "Response": "{ \"gst\": 1.23, \"pst\": 7.6 }",
+                  "HttpStatusCode": 200
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
