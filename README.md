@@ -4,7 +4,7 @@ Micro Stub is a tiny Micro Servcie which helps you to mock a response coming fro
 Benefit:
 * Integration Test: You can mock expected reponse coming from a micro service.
 * Productivity: You start implementing the UI and rely on a consistant data before writing the real service for it
-* 
+
 
 # How it works
 Tjere is a file named microstub.json inside the root folder in which you can specifiy the expcected behavour of your requests and responses
