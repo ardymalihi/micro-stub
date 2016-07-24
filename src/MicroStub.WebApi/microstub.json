@@ -18,14 +18,6 @@
                   "ContentType": "application/json",
                   "Response": "{ \"cartId\": 123, \"total\": 12.49, \"items\": [ { \"price\": 10.29 }, { \"price\": 2.20} ] }",
                   "HttpStatusCode": 200
-                },
-                {
-                  "HttpMethodName": "POST",
-                  "QueryString": null,
-                  "RequestBody": "{ memberId: 123, orderId: 1234 }",
-                  "ContentType": "application/json",
-                  "Response": "{ \"updated\": true }",
-                  "HttpStatusCode": 200
                 }
               ]
             },
@@ -37,7 +29,28 @@
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
-                  "Response": "{ \"err\": \"id should be between 1-1000\" }",
+                  "Response": "{ \"eror\": \"id should be between 1-1000\" }",
+                  "HttpStatusCode": 400
+                }
+              ]
+            },
+            {
+              "Address": "/api/v1/carts",
+              "Methods": [
+                {
+                  "HttpMethodName": "POST",
+                  "QueryString": null,
+                  "RequestBody": "{ memberId: 1, orderId: 1234 }",
+                  "ContentType": "application/json",
+                  "Response": "{ \"updated\": true }",
+                  "HttpStatusCode": 200
+                },
+                {
+                  "HttpMethodName": "POST",
+                  "QueryString": null,
+                  "RequestBody": "{ memberId: 2, orderId: 1234 }",
+                  "ContentType": "application/json",
+                  "Response": "{ \"eror\": \"invalid order id\" }",
                   "HttpStatusCode": 400
                 }
               ]
