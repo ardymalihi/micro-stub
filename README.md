@@ -102,7 +102,7 @@ As an example:
 Based on configuration above:
 
 http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
-returns: 
+
 ```json
 {
   "cartId": 123,
@@ -115,7 +115,7 @@ returns:
 ```
 
 http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
-returns: 
+ 
 ```json
 { 
   "eror": "id should be between 1-1000" 
