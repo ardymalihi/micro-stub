@@ -1,7 +1,7 @@
 ﻿{
   "Subscribers": [
     {
-      "Key": "BuildDirect",
+      "Key": "YourCompany",
       "Secret": "650A65AB27304869B8FD93F987A6C91E",
       "Projects": [
         // Cart Service Project
