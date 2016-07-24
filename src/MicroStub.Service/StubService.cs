@@ -24,9 +24,9 @@ namespace MicroStub.Service
             _httpHelper = httpHelper;
         }
 
-        public bool SubscriberExists(string key, string secret)
+        public Subscriber GetSubscriber(string key, string secret)
         {
-            return _stubData.GetSubscriber(key, secret) != null;
+            return _stubData.GetSubscriber(key, secret);
         }
 
         

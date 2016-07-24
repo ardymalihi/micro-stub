@@ -22,7 +22,7 @@
                 {
                   "HttpMethodName": "POST",
                   "QueryString": null,
-                  "RequestBody": "{ memberId: 123, orderId: 234 }",
+                  "RequestBody": "{ memberId: 123, orderId: 1234 }",
                   "ContentType": "application/json",
                   "Response": "{ \"updated\": true }",
                   "HttpStatusCode": 200

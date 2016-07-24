@@ -9,7 +9,7 @@ namespace MicroStub.Contract.Interface
 {
     public interface IStubService
     {
-        bool SubscriberExists(string key, string secret);
+        Subscriber GetSubscriber(string key, string secret);
 
         Method GetMethod(RequestInfo requestInfo);
     }

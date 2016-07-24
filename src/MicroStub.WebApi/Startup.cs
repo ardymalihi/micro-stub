@@ -14,6 +14,7 @@ using System.IO;
 using MicroStub.Common;
 using MicroStub.Contract.Interface;
 using MicroStub.Contract.Info;
+using MicroStub.Contract.Dto;
 
 namespace MicroStub
 {
@@ -50,31 +51,30 @@ namespace MicroStub
             IHttpHelper httpHelper,
             IStubService stubService)
         {
-            RequestInfo requestInfo = null; ;
+            RequestInfo requestInfo = null;
+            Subscriber subscriber = null;
 
             //Authentication
             app.Use(next => async context =>
             {
                 requestInfo = httpHelper.GetRequestInfo(context);
-                await next.Invoke(context);
-            });
-
-            //Authentication
-            app.Use(next => async context =>
-            {
-                var authorized = false;
+                
                 if (requestInfo != null)
                 {
-                    authorized = stubService.SubscriberExists(requestInfo.Key, requestInfo.Secret);
-                }
+                    subscriber = stubService.GetSubscriber(requestInfo.Key, requestInfo.Secret);
 
-                if (authorized)
-                {
-                    await next.Invoke(context);
+                    if (subscriber != null)
+                    {
+                        await next.Invoke(context);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    }
                 }
                 else
                 {
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
                 }
             });
 
