@@ -11,6 +11,7 @@ Benefit:
 
 There is a file named microstub.json inside the root folder in which you can specify the expected behaviour of your requests and responses
 
+```json
 {
   "Subscribers": [
     {
@@ -93,6 +94,7 @@ There is a file named microstub.json inside the root folder in which you can spe
     }
   ]
 }
+```
 
 # How to Test?
 
@@ -102,13 +104,20 @@ As an example:
 Based on configuration above:
 
 http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
-returns: {
+returns: 
+```json
+{
   cartId: 123,
   total: 12.49,
   items: [{price: 10.29},{price: 2.2}]
 }
-
+```
 
 http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
-returns: { eror: "id should be between 1-1000" }
+returns: 
+```json
+{ 
+  eror: "id should be between 1-1000" 
+}
+```
 
