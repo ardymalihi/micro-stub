@@ -99,7 +99,7 @@ There is a file named microstub.json inside the root folder in which you can spe
 Base Url is CompanyKey:CompanySecret@Project
 
 As an example:
-Based on configuration above:
+Based on configuration above: (Note: Key and Secret are case sensitive)
 
 http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
 
