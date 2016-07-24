@@ -7,8 +7,6 @@ namespace MicroStub.Contract.Dto
 {
     public class Project
     {
-        public string SubscriberKey { get; set; }
-
         public string Name { get; set; }
 
         public List<Endpoint> EndPoints { get; set; }

@@ -13,6 +13,7 @@ using MicroStub.Service;
 using System.IO;
 using MicroStub.Common;
 using MicroStub.Contract.Interface;
+using MicroStub.Contract.Info;
 
 namespace MicroStub
 {
@@ -49,10 +50,18 @@ namespace MicroStub
             IHttpHelper httpHelper,
             IStubService stubService)
         {
+            RequestInfo requestInfo = null; ;
+
             //Authentication
             app.Use(next => async context =>
             {
-                var requestInfo = httpHelper.GetRequestInfo(context);
+                requestInfo = httpHelper.GetRequestInfo(context);
+                await next.Invoke(context);
+            });
+
+            //Authentication
+            app.Use(next => async context =>
+            {
                 var authorized = false;
                 if (requestInfo != null)
                 {
@@ -72,7 +81,6 @@ namespace MicroStub
             //Service
             app.Run(async context =>
             {
-                var requestInfo = httpHelper.GetRequestInfo(context);
                 var method = stubService.GetMethod(requestInfo);
                 if (method != null)
                 {

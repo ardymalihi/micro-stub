@@ -40,7 +40,6 @@ namespace MicroStub.Service
 
                 if (project != null)
                 {
-                    var json = JsonConvert.SerializeObject(project, Formatting.Indented);
                     var endpoint = project.EndPoints.FirstOrDefault(o => o.Address.ToLower() == requestInfo.Endpoint.ToLower());
                     if (endpoint != null)
                     {

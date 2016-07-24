@@ -22,13 +22,8 @@ namespace MicroStub.Common
             if (authInfo.Count() == 3)
             {
                 var endpoint = "/";
-                string requestBody = null;
+                string requestBody = new StreamReader(context.Request.Body).ReadToEnd();
 
-                if (context.Request.Body.CanSeek)
-                {
-                    context.Request.Body.Position = 0;
-                    requestBody = new StreamReader(context.Request.Body).ReadToEnd();
-                }
                 if (routes.Count() > 1)
                 {
                     endpoint = endpoint + string.Join("/", routes.Skip(1).ToArray());
