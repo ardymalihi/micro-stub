@@ -74,25 +74,37 @@ namespace MicroStub
                 }
                 else
                 {
-                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    await next.Invoke(context);
                 }
             });
 
             //Service
-            app.Run(async context =>
+            app.Use(next => async context =>
             {
-                var method = stubService.GetMethod(requestInfo);
-                if (method != null)
+                if (requestInfo != null)
                 {
-                    context.Response.StatusCode = method.HttpStatusCode;
-                    context.Response.ContentType = method.ContentType;
-                    await context.Response.WriteAsync(method.Response);
+                    var method = stubService.GetMethod(requestInfo);
+                    if (method != null)
+                    {
+                        context.Response.StatusCode = method.HttpStatusCode;
+                        context.Response.ContentType = method.ContentType;
+                        await context.Response.WriteAsync(method.Response);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    }
                 }
                 else
                 {
-                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    await next.Invoke(context);
                 }
             });
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

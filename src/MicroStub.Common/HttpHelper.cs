@@ -18,26 +18,29 @@ namespace MicroStub.Common
             RequestInfo result = null;
 
             var routes = context.Request.Path.Value.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-            var authInfo = routes[0].Split(new string[] { ":", "@" }, StringSplitOptions.RemoveEmptyEntries);
-            if (authInfo.Count() == 3)
+            if (routes.Count() > 0)
             {
-                var endpoint = "/";
-                string requestBody = new StreamReader(context.Request.Body).ReadToEnd();
+                var authInfo = routes[0].Split(new string[] { ":", "@" }, StringSplitOptions.RemoveEmptyEntries);
+                if (authInfo.Count() == 3)
+                {
+                    var endpoint = "/";
+                    string requestBody = new StreamReader(context.Request.Body).ReadToEnd();
 
-                if (routes.Count() > 1)
-                {
-                    endpoint = endpoint + string.Join("/", routes.Skip(1).ToArray());
+                    if (routes.Count() > 1)
+                    {
+                        endpoint = endpoint + string.Join("/", routes.Skip(1).ToArray());
+                    }
+                    result = new RequestInfo
+                    {
+                        Key = authInfo[0],
+                        Secret = authInfo[1],
+                        Project = authInfo[2],
+                        Endpoint = endpoint,
+                        QueryString = context.Request.QueryString.Value,
+                        Method = context.Request.Method,
+                        RequestBody = requestBody
+                    };
                 }
-                result = new RequestInfo
-                {
-                    Key = authInfo[0],
-                    Secret = authInfo[1],
-                    Project = authInfo[2],
-                    Endpoint = endpoint,
-                    QueryString = context.Request.QueryString.Value,
-                    Method = context.Request.Method,
-                    RequestBody = requestBody
-                };
             }
 
             return result;

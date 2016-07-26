@@ -17,7 +17,8 @@
     "Microsoft.Extensions.Caching.Memory": "1.0.0",
     "MicroStub.Service": "1.0.0-*",
     "MicroStub.Contract": "1.0.0-*",
-    "MicroStub.Common": "1.0.0-*"
+    "MicroStub.Common": "1.0.0-*",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0"
   },
 
   "tools": {
