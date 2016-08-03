@@ -3,7 +3,6 @@
   "type": "object",
   "properties": {
     "Subscribers": {
-      "format": "tabs",
       "required": true,
       "type": "array",
       "items": {
