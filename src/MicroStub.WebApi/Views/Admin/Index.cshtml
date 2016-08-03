@@ -9,13 +9,13 @@
     <title>Micro Stub Admin Panel</title>
 
     <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
-    <link rel='stylesheet' href='//cdn.jsdelivr.net/foundation/5.0.2/css/foundation.min.css'>
+    <link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'>
     <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
     <script src="~/js/jsoneditor.js"></script>
     <script>
     // Set the default CSS theme and icon library globally
-    JSONEditor.defaults.theme = 'foundation5';
+    JSONEditor.defaults.theme = 'bootstrap3';
     JSONEditor.defaults.iconlib = 'fontawesome4';
     </script>
 </head>
@@ -40,12 +40,15 @@
       // Initialize the editor
       var editor = new JSONEditor(document.getElementById('editor_holder'),{
         // Enable fetching schemas via ajax
-        ajax: true,
+          ajax: true,
+          disable_collapse: true,
+          disable_edit_json: true,
+          disable_properties: true,
 
         // The schema for the editor
         schema: {
           $ref: "/js/schema.json",
-          format: "grid"
+          format: ""
         },
 
         // Seed the form with a starting value

@@ -3,115 +3,79 @@
   "type": "object",
   "properties": {
     "Subscribers": {
+      "format": "tabs",
       "required": true,
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": "array",
       "items": {
-        "type": [
-          "object",
-          "null"
-        ],
+        "headerTemplate": "{{self.Key}}",
+        "type": "object",
         "properties": {
           "Key": {
             "required": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "Secret": {
             "required": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "Projects": {
+            "format": "tabs",
             "required": true,
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": [
-                "object",
-                "null"
-              ],
+              "headerTemplate": "{{self.Name}}",
+              "type": "object",
               "properties": {
                 "Name": {
                   "required": true,
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                  "type": "string"
                 },
                 "EndPoints": {
+                  "format": "tabs",
                   "required": true,
-                  "type": [
-                    "array",
-                    "null"
-                  ],
+                  "type": "array",
                   "items": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "headerTemplate": "{{self.Address}}",
+                    "type": "object",
                     "properties": {
                       "Address": {
                         "required": true,
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": "string"
                       },
                       "Methods": {
+                        "format": "tabs",
                         "required": true,
-                        "type": [
-                          "array",
-                          "null"
-                        ],
+                        "type": "array",
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "headerTemplate": "{{self.HttpVerb}}-{{self.HttpStatusCode}}",
+                          "type": "object",
                           "properties": {
                             "HttpVerb": {
-                              "required": true,
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "array",
+                              "format": "select",
+                              "uniqueItems": true,
+                              "items": {
+                                "type": "string",
+                                "enum": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
+                              }
                             },
                             "QueryString": {
                               "required": true,
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "RequestBody": {
+                              "format": "textarea",
                               "required": true,
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "ContentType": {
                               "required": true,
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "Response": {
+                              "format": "textarea",
                               "required": true,
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "HttpStatusCode": {
                               "required": true,
