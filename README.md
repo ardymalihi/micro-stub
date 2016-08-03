@@ -15,8 +15,8 @@ There is a file named microstub.json inside the root folder in which you can spe
 {
   "Subscribers": [
     {
-      "Key": "YourCompany",
-      "Secret": "650A65AB27304869B8FD93F987A6C91E",
+      "Key": "CompanyKey",
+      "Secret": "CompanySecret",
       "Projects": [
         {
           "Name": "CartService",
@@ -109,7 +109,7 @@ http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/1
   "total": 12.49,
   "items": [
     { "price": 10.29 },
-    { "price": 12.25 }
+    { "price": 2.20 }
   ]
 }
 ```
