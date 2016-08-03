@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MicroStub.Data;
 using Newtonsoft.Json.Schema;
 using MicroStub.WebApi.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
+using MicroStub.Contract.Interface;
+using MicroStub.Contract.Config;
 
 namespace MicroStub.WebApi.Controllers
 {
     public class AdminController : Controller
     {
         private IHostingEnvironment _env;
+        private IStubData _stubData;
 
-        public AdminController(IHostingEnvironment env)
+        public AdminController(IHostingEnvironment env, IStubData stubData)
         {
             _env = env;
+            _stubData = stubData;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
             var jsonSchemaGenerator = new JsonSchemaGenerator();
@@ -24,23 +29,18 @@ namespace MicroStub.WebApi.Controllers
             schemaGenerator.Title = myType.Name;
             var schema = schemaGenerator.ToString();
 
-            var microStubInfo = new StubConfig();
-
-            var builder = new ConfigurationBuilder()
-                    .SetBasePath(_env.ContentRootPath)
-                    .AddJsonFile("microstub.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"microstub.{_env.EnvironmentName}.json", optional: true)
-                    .AddEnvironmentVariables();
-
-            var config = builder.Build();
-
-            config.Bind(microStubInfo);
-
             var result = new AdminModel {
-                Data = microStubInfo,
+                Data = _stubData.MicroStubConfig,
                 Schema = schema
             };
             return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult Save(StubConfig request)
+        {
+            _stubData.Save(request, _env.ContentRootPath + "\\microstub.json");
+            return Ok();
         }
     }
 }

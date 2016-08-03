@@ -50,13 +50,9 @@
                           "type": "object",
                           "properties": {
                             "HttpVerb": {
-                              "type": "array",
-                              "format": "select",
-                              "uniqueItems": true,
-                              "items": {
-                                "type": "string",
-                                "enum": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
-                              }
+                              "type": "string",
+                              "enum": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+                              "required": true
                             },
                             "QueryString": {
                               "required": true,
@@ -68,8 +64,9 @@
                               "type": "string"
                             },
                             "ContentType": {
-                              "required": true,
-                              "type": "string"
+                              "type": "string",
+                              "enum": [ "application/json", "text/html", "text/plain", "text/xml" ],
+                              "required": true
                             },
                             "Response": {
                               "format": "textarea",
@@ -77,8 +74,9 @@
                               "type": "string"
                             },
                             "HttpStatusCode": {
-                              "required": true,
-                              "type": "integer"
+                              "type": "integer",
+                              "enum": [ 200, 301, 302, 304, 400, 401, 403, 404, 408, 409, 500, 502, 503, 504 ],
+                              "required": true
                             }
                           }
                         }

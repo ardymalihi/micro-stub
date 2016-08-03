@@ -1,4 +1,5 @@
-﻿using MicroStub.Contract.Dto;
+﻿using MicroStub.Contract.Config;
+using MicroStub.Contract.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace MicroStub.Contract.Interface
 {
     public interface IStubData
     {
+        StubConfig MicroStubConfig { get; }
         Subscriber GetSubscriber(string subscriberKey, string subscriberSecret);
+        void Save(StubConfig stubConfig, string fileName);
     }
 }
