@@ -15,8 +15,8 @@ There is a file named microstub.json inside the root folder in which you can spe
 {
   "Subscribers": [
     {
-      "Key": "CompnayKey",
-      "Secret": "CompanySecret",
+      "Key": "YourCompany",
+      "Secret": "650A65AB27304869B8FD93F987A6C91E",
       "Projects": [
         {
           "Name": "CartService",
@@ -25,7 +25,7 @@ There is a file named microstub.json inside the root folder in which you can spe
               "Address": "/api/v1/cart/1",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
@@ -38,7 +38,7 @@ There is a file named microstub.json inside the root folder in which you can spe
               "Address": "/api/v1/cart/2000000",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
@@ -51,7 +51,7 @@ There is a file named microstub.json inside the root folder in which you can spe
               "Address": "/api/v1/carts",
               "Methods": [
                 {
-                  "HttpMethodName": "POST",
+                  "HttpVerb": "POST",
                   "QueryString": null,
                   "RequestBody": "{ memberId: 1, orderId: 1234 }",
                   "ContentType": "application/json",
@@ -59,7 +59,7 @@ There is a file named microstub.json inside the root folder in which you can spe
                   "HttpStatusCode": 200
                 },
                 {
-                  "HttpMethodName": "POST",
+                  "HttpVerb": "POST",
                   "QueryString": null,
                   "RequestBody": "{ memberId: 2, orderId: 1234 }",
                   "ContentType": "application/json",
@@ -77,7 +77,7 @@ There is a file named microstub.json inside the root folder in which you can spe
               "Address": "/api/v1/taxes/1",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
