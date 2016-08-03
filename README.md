@@ -123,6 +123,6 @@ http://localhost:1479/CompanyKey:CompanySecret@CartService/api/v1/cart/2000000
 ```
 
 # Admin Panel
-Url: [BaseUrl]/Admin/Index
+http://localhost:1479/Admin/Index
 
 ![alt tag](https://raw.githubusercontent.com/ardymalihi/micro-stub/master/src/MicroStub.WebApi/wwwroot/images/admin-panel.png)
