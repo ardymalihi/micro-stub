@@ -7,7 +7,7 @@ namespace MicroStub.Contract.Dto
 {
     public class Method
     {
-        public string HttpMethodName { get; set; }
+        public string HttpVerb { get; set; }
 
         public string QueryString { get; set; }
 

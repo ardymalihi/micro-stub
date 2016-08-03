@@ -4,7 +4,6 @@
       "Key": "YourCompany",
       "Secret": "650A65AB27304869B8FD93F987A6C91E",
       "Projects": [
-        // Cart Service Project
         {
           "Name": "CartService",
           "EndPoints": [
@@ -12,7 +11,7 @@
               "Address": "/api/v1/cart/1",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
@@ -25,7 +24,7 @@
               "Address": "/api/v1/cart/2000000",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
@@ -38,7 +37,7 @@
               "Address": "/api/v1/carts",
               "Methods": [
                 {
-                  "HttpMethodName": "POST",
+                  "HttpVerb": "POST",
                   "QueryString": null,
                   "RequestBody": "{ memberId: 1, orderId: 1234 }",
                   "ContentType": "application/json",
@@ -46,7 +45,7 @@
                   "HttpStatusCode": 200
                 },
                 {
-                  "HttpMethodName": "POST",
+                  "HttpVerb": "POST",
                   "QueryString": null,
                   "RequestBody": "{ memberId: 2, orderId: 1234 }",
                   "ContentType": "application/json",
@@ -57,7 +56,6 @@
             }
           ]
         },
-        // Tax Service Project
         {
           "Name": "TaxService",
           "EndPoints": [
@@ -65,7 +63,7 @@
               "Address": "/api/v1/taxes/1",
               "Methods": [
                 {
-                  "HttpMethodName": "GET",
+                  "HttpVerb": "GET",
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",

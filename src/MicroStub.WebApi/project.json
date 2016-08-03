@@ -18,7 +18,12 @@
     "MicroStub.Service": "1.0.0-*",
     "MicroStub.Contract": "1.0.0-*",
     "MicroStub.Common": "1.0.0-*",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0"
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+    "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
+    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Newtonsoft.Json": "9.0.1"
   },
 
   "tools": {

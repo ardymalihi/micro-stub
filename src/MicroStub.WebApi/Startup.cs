@@ -39,6 +39,8 @@ namespace MicroStub
             services.AddSingleton<IStubData, StubData>();
             services.AddSingleton<IStubService, StubService>();
 
+            services.AddMvc();
+
             services.AddMemoryCache();
 
         }
@@ -53,6 +55,16 @@ namespace MicroStub
         {
             RequestInfo requestInfo = null;
             Subscriber subscriber = null;
+
+            app.UseStaticFiles();
+
+            app.UseMvc(rb =>
+            {
+                rb.MapRoute(
+                    name: "admin",
+                    template: "admin/index",
+                    defaults: new { controller = "Admin", action = "Index" });
+            });
 
             //Authentication
             app.Use(next => async context =>
@@ -86,8 +98,8 @@ namespace MicroStub
                     var method = stubService.GetMethod(requestInfo);
                     if (method != null)
                     {
-                        context.Response.StatusCode = method.HttpStatusCode;
-                        context.Response.ContentType = method.ContentType;
+                        context.Response.StatusCode = (int)method.HttpStatusCode;
+                        context.Response.ContentType = method.ContentType.ToString().ToLower().Replace("_","/");
                         await context.Response.WriteAsync(method.Response);
                     }
                     else

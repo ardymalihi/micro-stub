@@ -1,0 +1,133 @@
+{
+  "title": "StubConfig",
+  "type": "object",
+  "properties": {
+    "Subscribers": {
+      "required": true,
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "Key": {
+            "required": true,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Secret": {
+            "required": true,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Projects": {
+            "required": true,
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Name": {
+                  "required": true,
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "EndPoints": {
+                  "required": true,
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "Address": {
+                        "required": true,
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "Methods": {
+                        "required": true,
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "HttpVerb": {
+                              "required": true,
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "QueryString": {
+                              "required": true,
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "RequestBody": {
+                              "required": true,
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "ContentType": {
+                              "required": true,
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "Response": {
+                              "required": true,
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "HttpStatusCode": {
+                              "required": true,
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

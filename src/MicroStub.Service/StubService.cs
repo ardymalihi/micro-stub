@@ -44,7 +44,7 @@ namespace MicroStub.Service
                     if (endpoint != null)
                     {
                         var method = endpoint.Methods.FirstOrDefault(o =>
-                        o.HttpMethodName.ToLower() == requestInfo.Method.ToLower() &&
+                        o.HttpVerb.ToString().ToLower() == requestInfo.Method.ToLower() &&
                         _httpHelper.QueryStringsEqual(o.QueryString, requestInfo.QueryString) &&
                         _httpHelper.JsonsEqual(o.RequestBody, requestInfo.RequestBody));
                         return method;
