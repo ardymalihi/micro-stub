@@ -15,13 +15,13 @@
                   "QueryString": null,
                   "RequestBody": null,
                   "ContentType": "application/json",
-                  "Response": "{ \n  \"cartId\": 12345678, \n  \"total\": 12.49, \n  \"items\": [ \n    { \"price\": 10.29 }, \n    { \"price\": 2.20} \n  ] \n}",
+                  "Response": "{ \"cartId\": 123, \"total\": 12.49, \"items\": [ { \"price\": 10.29 }, { \"price\": 2.20} ] }",
                   "HttpStatusCode": 200
                 }
               ]
             },
             {
-              "Address": "/api/v1/cart/20000001",
+              "Address": "/api/v1/cart/2000000",
               "Methods": [
                 {
                   "HttpVerb": "GET",
@@ -41,7 +41,7 @@
                   "QueryString": null,
                   "RequestBody": "{ memberId: 1, orderId: 1234 }",
                   "ContentType": "application/json",
-                  "Response": "{ \n  \"updated\": true\n }",
+                  "Response": "{ \"updated\": true }",
                   "HttpStatusCode": 200
                 },
                 {

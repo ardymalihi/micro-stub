@@ -8,6 +8,11 @@ namespace MicroStub.Contract.Config
 {
     public class StubConfig
     {
-        public Subscriber[] Subscribers { get; set; }
+        public List<Subscriber> Subscribers { get; set; }
+
+        public StubConfig()
+        {
+            Subscribers = new List<Dto.Subscriber>();
+        }
     }
 }
