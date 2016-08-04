@@ -9,8 +9,8 @@ Benefit:
 
 # How it works
 
-Demo : http://microstub.azurewebsites.net/admin/index
-Test:  http://microstub.azurewebsites.net/bd:123@userintentservice/api/v1/userintents/1
+* Demo : http://microstub.azurewebsites.net/admin/index
+* Test:  http://microstub.azurewebsites.net/bd:123@userintentservice/api/v1/userintents/1
 
 There is a file named microstub.json inside the root folder in which you can specify the expected behaviour of your requests and responses
 
