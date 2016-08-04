@@ -233,3 +233,5 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 src/MicroStub.WebApi/microstub.json
+src/MicroStub.WebApi/Properties/PublishProfiles/microstub - Web Deploy-publish.ps1
+src/MicroStub.WebApi/Properties/PublishProfiles/publish-module.psm1
