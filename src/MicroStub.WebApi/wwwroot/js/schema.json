@@ -1,5 +1,5 @@
 {
-  "title": "StubConfig",
+  "title": "Micro Stub Service Admin Panel",
   "type": "object",
   "properties": {
     "Subscribers": {
