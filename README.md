@@ -1,4 +1,4 @@
-* Note: To be able to build this solution, you need Visul Studio 2015 update 3 with asp.net core 1.0
+* Note: To be able to build this solution, you need Visul Studio 2015 update 3 with asp.net core 1.0 RTM
 
 # micro-stub
 
