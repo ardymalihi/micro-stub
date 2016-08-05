@@ -9,7 +9,7 @@ namespace MicroStub.Contract.Interface
 {
     public interface IStubData
     {
-        StubConfig MicroStubConfig { get; }
+        StubConfig MicroStubConfig { get; set; }
         Subscriber GetSubscriber(string subscriberKey, string subscriberSecret);
         void Save(StubConfig stubConfig, string fileName);
     }

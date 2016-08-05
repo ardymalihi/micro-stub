@@ -46,9 +46,13 @@
                         "required": true,
                         "type": "array",
                         "items": {
-                          "headerTemplate": "{{self.HttpVerb}}-{{self.HttpStatusCode}}",
+                          "headerTemplate": "{{self.Description}}",
                           "type": "object",
                           "properties": {
+                            "Description": {
+                              "required": true,
+                              "type": "string"
+                            },
                             "HttpVerb": {
                               "type": "string",
                               "enum": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],

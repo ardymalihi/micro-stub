@@ -61,14 +61,9 @@ namespace MicroStub
             app.UseMvc(rb =>
             {
                 rb.MapRoute(
-                    name: "admin_index",
-                    template: "admin/index",
+                    name: "admin",
+                    template: "admin/{action}",
                     defaults: new { controller = "Admin", action = "Index" });
-
-                rb.MapRoute(
-                    name: "admin_save",
-                    template: "admin/save",
-                    defaults: new { controller = "Admin", action = "Save" });
             });
 
             //Authentication

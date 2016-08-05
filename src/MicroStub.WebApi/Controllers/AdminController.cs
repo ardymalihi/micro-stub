@@ -42,5 +42,13 @@ namespace MicroStub.WebApi.Controllers
             _stubData.Save(request, _env.ContentRootPath + "\\microstub.json");
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult Reset()
+        {
+            _stubData.MicroStubConfig = null;
+
+            return RedirectToAction("Index");
+        }
     }
 }

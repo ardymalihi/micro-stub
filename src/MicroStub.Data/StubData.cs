@@ -21,14 +21,22 @@ namespace MicroStub.Data
         {
             get
             {
+                if (_microStubConfig == null)
+                {
+                    Bind();
+                }
+
                 return _microStubConfig;
+            }
+            set
+            {
+                _microStubConfig = value;
             }
         }
 
         public StubData(IHostingEnvironment env)
         {
             _env = env;
-
             Bind();
         }
 
@@ -36,27 +44,17 @@ namespace MicroStub.Data
         {
             _microStubConfig = new StubConfig();
 
-            var builder = new ConfigurationBuilder()
+            new ConfigurationBuilder()
                     .SetBasePath(_env.ContentRootPath)
-                    .AddJsonFile("microstub.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"microstub.{_env.EnvironmentName}.json", optional: true)
-                    .AddEnvironmentVariables();
+                    .AddJsonFile("microstub.json")
+                    .Build()
+                    .Bind(_microStubConfig);
 
-            var config = builder.Build();
-
-            config.Bind(_microStubConfig);
-
-            var token = config.GetReloadToken();
-            token.RegisterChangeCallback(c =>
-            {
-                Bind();
-
-            }, this);
         }
 
         public Subscriber GetSubscriber(string subscriberKey, string subscriberSecret)
         {
-            return _microStubConfig.Subscribers.FirstOrDefault(o => o.Key == subscriberKey && o.Secret == subscriberSecret);
+            return MicroStubConfig.Subscribers.FirstOrDefault(o => o.Key == subscriberKey && o.Secret == subscriberSecret);
         }
 
         public void Save(StubConfig stubConfig, string fileName)

@@ -63,7 +63,8 @@ body {
     <div class='row fullWidth header'>
         <div class='medium-12-columns'>
             <button id='submit'>Save</button>
-            <button id='restore' class='secondary'>Restore to Default</button>
+            <button id='restore' class='secondary'>Undo All Changes</button>
+            <button id='resetCache' class='secondary'>Reset Cache</button>
             <span id='valid_indicator' class='label'></span>
         </div>
     </div>
@@ -87,6 +88,7 @@ body {
           disable_collapse: true,
           disable_edit_json: true,
           disable_properties: true,
+          disable_array_reorder: true,
 
         // The schema for the editor
         schema: {
@@ -108,6 +110,11 @@ body {
       // Hook up the Restore to Default button
       document.getElementById('restore').addEventListener('click',function() {
         editor.setValue(starting_value);
+      });
+
+      // Reset Cache button
+      document.getElementById('resetCache').addEventListener('click',function() {
+          document.location.href = "/admin/reset";
       });
 
       // Hook up the validation indicator to update its
