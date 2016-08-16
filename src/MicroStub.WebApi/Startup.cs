@@ -35,6 +35,18 @@ namespace MicroStub
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowCredentials();
+                });
+            });
+
+
             services.AddSingleton<IHttpHelper, HttpHelper>();
             services.AddSingleton<IStubData, StubData>();
             services.AddSingleton<IStubService, StubService>();
@@ -55,6 +67,8 @@ namespace MicroStub
         {
             RequestInfo requestInfo = null;
             Subscriber subscriber = null;
+
+            app.UseCors("CorsPolicy");
 
             app.UseStaticFiles();
 

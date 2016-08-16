@@ -46,7 +46,7 @@ namespace MicroStub.Data
 
             new ConfigurationBuilder()
                     .SetBasePath(_env.ContentRootPath)
-                    .AddJsonFile("microstub.json")
+                    .AddJsonFile("microstub.json",true)
                     .Build()
                     .Bind(_microStubConfig);
 

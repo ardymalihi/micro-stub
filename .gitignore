@@ -235,3 +235,4 @@ _Pvt_Extensions
 src/MicroStub.WebApi/microstub.json
 src/MicroStub.WebApi/Properties/PublishProfiles/microstub - Web Deploy-publish.ps1
 src/MicroStub.WebApi/Properties/PublishProfiles/publish-module.psm1
+*.ps1
