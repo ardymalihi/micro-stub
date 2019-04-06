@@ -1,6 +1,6 @@
 * Note: To be able to build this solution, you need Visul Studio 2017 update 3 with asp.net core 1.0 RTM
 
-# micro-stub
+# micro-stub version 2
 
 Micro Stub is a tiny Micro Service which helps you to mock a response coming from a request.
 
